@@ -19,4 +19,6 @@ Beatz aims to provide a smooth and intuitive experience for users who want to li
 - Express.js
 - Vite
 - Git and GitHub
-- MongoDB (under evaluation)
+- PostgreSQL
+- Supabase
+- Firebase Authentication
