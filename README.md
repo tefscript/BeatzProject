@@ -22,3 +22,4 @@ Beatz aims to provide a smooth and intuitive experience for users who want to li
 - PostgreSQL
 - Supabase
 - Firebase Authentication
+- Postman
