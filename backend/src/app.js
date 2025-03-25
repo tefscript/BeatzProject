@@ -10,4 +10,7 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'API Beatz está funcionando' });
 });
 
+const userRoutes = require ('./routes/userRoutes');
+app.use('/users', userRoutes);
+
 module.exports = app;
