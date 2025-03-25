@@ -36,13 +36,12 @@ exports.updateUser = async (req, res) => {
     const { name, email, password } = req.body;
     const { data, error } = await supabase.from('users').update({ name, email, password }).eq('id', id);
     if (error) return res.status(400).json({ error: error.message });
-
-    res.json(data);
+    res.json({ message: "Usuário atualizado com sucesso!",data});
 };
 
 exports.deleteUser = async (req, res) => {
     const { id } = req.params;
     const { error } = await supabase.from('users').delete().eq('id', id);
     if (error) return res.status(400).json({ error: error.message });
-    res.json({ message: 'User deleted successfully' });
+    res.json({ message: 'Usuário excluído com sucesso!' });
 };
