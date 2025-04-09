@@ -4,17 +4,20 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0;
+  height: 100vh;
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
-  text-align: center;
   width: 495px;
 }
 
-.beatzheader {
+header.beatzheader {
   display: flex;
   justify-content: center;
+  margin-bottom: 100px; 
 }
 
 h1 {
