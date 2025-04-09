@@ -5,11 +5,15 @@ import BeatzLogo from "../../assets/BeatzLogo2.svg";
 const Login = () => {
   return (
     <div className="container">
-      <form>
-        <div className="beatzheader">
-        <img src={BeatzLogo} alt="Beatz Logo" style={{ width: "120px", height: "auto" }} />
-        </div>
+      <header className="beatzheader">
+        <img
+          src={BeatzLogo}
+          alt="Beatz Logo"
+          style={{ width: "150px", height: "auto" }}
+        />
+      </header>
 
+      <form>
         <div>
           <button className="facebook">CONTINUE WITH FACEBOOK"</button>
         </div>
