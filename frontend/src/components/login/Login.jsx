@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import './login.css';
+import "./login.css";
+import BeatzLogo from "../../assets/BeatzLogo2.svg";
 
 const Login = () => {
   return (
     <div className="container">
       <form>
-        <h1>Beatz</h1>
+        <div className="beatzheader">
+        <img src={BeatzLogo} alt="Beatz Logo" style={{ width: "120px", height: "auto" }} />
+        </div>
+
         <div>
           <button className="facebook">CONTINUE WITH FACEBOOK"</button>
         </div>
@@ -16,29 +20,29 @@ const Login = () => {
           <button className="google">CONTINUE WITH GOOGLE</button>
         </div>
         <a>OR</a>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <div>
           <a className="input-field">Email address</a>
-          <br/>
+          <br />
           <input type="email" placeholder="Email address" />
         </div>
         <div>
           <a>Email address</a>
-          <br/>
+          <br />
           <input type="password" placeholder="Password" />
         </div>
         <div className="forgetpassword">
           <a href="#">Forget your password?</a>
         </div>
         <button>LOG IN</button>
-        
+
         <div className="signup">
-        <br />
+          <br />
           <p>
-           Don't have an account?
-           <br/>
-           <button>Sign up for BEATZ</button>
+            Don't have an account?
+            <br />
+            <button>Sign up for BEATZ</button>
           </p>
         </div>
       </form>
