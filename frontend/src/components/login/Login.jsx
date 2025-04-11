@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import "./login.css";
-import BeatzLogo from "../../assets/BeatzLogo2.svg";
+import "@/components/login/login.css";
+import Icon from "@/components/icon/Icon";
 
 const Login = () => {
   return (
     <div>
       <header className="beatzheader">
-        <img
-          src={BeatzLogo}
-          alt="Beatz Logo"
+        <Icon
+          name="beatz"
+          alt="Beatz"
           style={{ width: "150px", height: "auto" }}
         />
         <hr />
@@ -17,38 +17,63 @@ const Login = () => {
       <div className="container">
         <form>
           <div>
-            <button className="facebook">CONTINUE WITH FACEBOOK</button>
+            <button className="facebook">
+              <Icon
+                name="facebook"
+                alt="Facebook"
+                style={{ width: "20px", height: "auto" }}
+              />
+              <span className="button-text">CONTINUE WITH FACEBOOK</span>
+            </button>
           </div>
           <div>
-            <button className="apple">CONTINUE WITH APPLE</button>
+            <button className="apple">
+              <Icon
+                name="apple"
+                alt="Apple"
+                style={{ width: "18px", height: "auto" }}
+              />
+              <span className="button-text">CONTINUE WITH APPLE</span>
+            </button>
           </div>
           <div>
-            <button className="google">CONTINUE WITH GOOGLE</button>
+            <button className="google">
+              <Icon
+                name="google"
+                alt="Google"
+                style={{ width: "20px", height: "auto" }}
+              />
+              <span className="button-text">CONTINUE WITH GOOGLE</span>
+            </button>
           </div>
-          <a>OR</a>
-          <br />
-          <br />
-          <div>
-            <a className="input-field">Email address</a>
-            <br />
+          <div className="or">
+            <hr />
+            <a>OR</a>
+            <hr />
+          </div>
+          <div className="email-password">
+            <a>Email address</a>
             <input type="email" placeholder="Email address" />
-          </div>
-          <div>
-            <a>Password</a>
             <br />
+            <a>Password</a>
             <input type="password" placeholder="Password" />
           </div>
+
           <div className="forgetpassword">
             <a href="#">Forget your password?</a>
           </div>
-          <button>LOG IN</button>
 
+          <div className="button-login">
+            <button className="login">LOG IN</button>
+          </div>
+
+          <hr className="hr3"/>
           <div className="signup">
             <br />
             <p>
               Don't have an account?
               <br />
-              <button>Sign up for BEATZ</button>
+              <button className="signbeatz">Sign up for BEATZ</button>
             </p>
           </div>
         </form>
