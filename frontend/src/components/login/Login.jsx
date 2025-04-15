@@ -9,7 +9,7 @@ const Login = () => {
         <Icon
           name="beatz"
           alt="Beatz"
-          style={{ width: "150px", height: "auto" }}
+          className="logo-beatz"
         />
         <hr />
       </header>
@@ -21,7 +21,7 @@ const Login = () => {
               <Icon
                 name="facebook"
                 alt="Facebook"
-                style={{ width: "20px", height: "auto" }}
+                className="logo-facebook"
               />
               <span className="button-text">CONTINUE WITH FACEBOOK</span>
             </button>
@@ -31,7 +31,7 @@ const Login = () => {
               <Icon
                 name="apple"
                 alt="Apple"
-                style={{ width: "18px", height: "auto" }}
+                className="logo-apple"
               />
               <span className="button-text">CONTINUE WITH APPLE</span>
             </button>
@@ -41,7 +41,7 @@ const Login = () => {
               <Icon
                 name="google"
                 alt="Google"
-                style={{ width: "20px", height: "auto" }}
+                className="logo-google"
               />
               <span className="button-text">CONTINUE WITH GOOGLE</span>
             </button>

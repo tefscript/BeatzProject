@@ -10,9 +10,9 @@ const icons = {
   apple: AppleIcon,
 };
 
-const Icon = ({ name, alt, style }) => {
+const Icon = ({ name, alt, className }) => {
   const IconSrc = icons[name];
-  return <img src={IconSrc} alt={alt} style={style} className="icon" />;
+  return <img src={IconSrc} alt={alt} className={`icon ${className || ""}`} />;
 };
 
 export default Icon;
