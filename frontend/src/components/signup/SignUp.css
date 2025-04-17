@@ -45,8 +45,12 @@ header.beatzheader hr {
   margin-top: 120px;
 }
 
-div {
-  margin-bottom: 15px;
+.h1sign {
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-weight:900;
+    color: #555555;
+    margin-bottom: 30px;
 }
 
 button {
@@ -147,11 +151,10 @@ input[type="password"] {
   font-size: 15px;
   color: black;
   font-family: "Montserrat", sans-serif;
+  text-decoration: none;
 }
 
-.forgetpassword a:hover {
-  text-decoration: underline;
-}
+
 
 .button-login {
   display: flex;
