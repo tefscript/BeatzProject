@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 body {
   background-color: white;
@@ -46,11 +46,11 @@ header.beatzheader hr {
 }
 
 .h1sign {
-    text-align: center;
-    font-family: "Montserrat", sans-serif;
-    font-weight:900;
-    color: #555555;
-    margin-bottom: 30px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  color: #555555;
+  margin-bottom: 30px;
 }
 
 button {
@@ -129,7 +129,8 @@ button:hover {
 }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"] {
   border: 1px solid #ccc;
   width: 100%;
   height: 45px;
@@ -139,22 +140,35 @@ input[type="password"] {
   font-family: "Inter", sans-serif;
 }
 
-.email-password {
+.email-password-name {
   display: flex;
   flex-direction: column;
   gap: 5px;
   font-weight: 700;
   font-family: "Inter", sans-serif;
+  margin-bottom: 4px;
 }
 
-.forgetpassword a {
+.profile p {
   font-size: 15px;
   color: black;
   font-family: "Montserrat", sans-serif;
   text-decoration: none;
 }
 
+.terms-checkbox a {
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
 
+.terms-checkbox a:hover {
+  text-decoration: underline;
+}
+
+.terms-checkbox input[type="checkbox"] {
+  accent-color: #6e54ff;
+}
 
 .button-login {
   display: flex;
@@ -169,43 +183,14 @@ input[type="password"] {
   font-size: 14px;
 }
 
-.hr3 {
-  width: 100%;
-  margin: 20px 0;
-  border: none;
-  border-top: 2px solid rgb(217, 218, 220, 0.5);
-  border-radius: 5px;
-}
-
-.signup p {
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-  align-items: center;
-  font-weight: 700;
-  font-family: "Inter", sans-serif;
-  font-size: 16px;
-}
-
-.signup button {
-  background-color: white;
-  color: grey;
-  border: 1px solid #ccc;
-  width: 100%;
-  height: 45px;
-  border-radius: 20px;
-}
-
-.signup button:hover {
-  background-color: #e0e0e0;
-}
 
 @media (max-height: 834px) {
   * {
     box-sizing: border-box;
   }
 
-  html, body {
+  html,
+  body {
     height: 100vh;
     overflow: hidden;
   }
@@ -226,11 +211,9 @@ input[type="password"] {
     margin-top: 130px;
     width: 360px;
     padding: 15px;
-    gap: 12px;
   }
 
-  button,
-  .signup button {
+  button {
     height: 32px;
     font-size: 12px;
     gap: 6px;
@@ -242,15 +225,16 @@ input[type="password"] {
   }
 
   input[type="email"],
-  input[type="password"] {
+  input[type="password"],
+  input[type="text"] {
     height: 32px;
     font-size: 12px;
     padding: 8px;
   }
 
-  .email-password {
+  .email-password-name {
     font-size: 13px;
-    gap: 3px;
+    gap: 1px;
   }
 
   .login {
@@ -259,23 +243,14 @@ input[type="password"] {
     height: 32px;
   }
 
-  .signup p {
-    font-size: 12px;
-    gap: 7px;
-  }
-
   .or {
     font-size: 12px;
     gap: 8px;
     padding: 6px;
   }
 
-  .forgetpassword a {
+  .profile p {
     font-size: 12px;
-  }
-
-  .hr3 {
-    margin: 12px 0;
   }
 
   .logo-facebook,

@@ -3,11 +3,11 @@ import "@/components/signup/SignUp.css";
 import Icon from "@/components/icon/Icon";
 
 const SignUp = () => {
-    const [isChecked, setIsChecked] = useState(false); // Para controlar o estado do checkbox
+  const [isChecked, setIsChecked] = useState(false); // Para controlar o estado do checkbox
 
-    const handleCheckboxChange = () => {
-      setIsChecked(!isChecked); // Alterna o estado do checkbox
-    };
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked); // Alterna o estado do checkbox
+  };
 
   return (
     <div>
@@ -18,9 +18,8 @@ const SignUp = () => {
 
       <div className="container">
         <form>
+          <h1 className="h1sign">Sign up and turn up the music.</h1>
 
-            <h1 className="h1sign">Sign up and turn up the music.</h1>
-            
           <div>
             <button className="facebook">
               <Icon name="facebook" alt="Facebook" className="logo-facebook" />
@@ -44,20 +43,24 @@ const SignUp = () => {
             <a>OR</a>
             <hr />
           </div>
-          <div className="email-password">
+
+          <div className="email-password-name">
             <a>Email address</a>
             <input type="email" placeholder="Email address" />
             <br />
             <a>Password</a>
             <input type="password" placeholder="Password" />
+            <br />
+            <a>Your Name</a>
+            <input type="text" placeholder="Name" />{" "}
           </div>
 
-          <div className="forgetpassword">
-            <a href="#">Your profile will show this name</a>
+          <div className="profile">
+            <p>Your profile will show this name</p>
           </div>
 
-           {/* Checkbox para os Termos */}
-           <div className="terms-checkbox">
+          {/* Checkbox para os Termos */}
+          <div className="terms-checkbox">
             <input
               type="checkbox"
               id="terms"
@@ -70,9 +73,14 @@ const SignUp = () => {
                 Terms of Use
               </a>{" "}
               and{" "}
-              <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+              <a
+                href="/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Privacy Policy
-              </a>.
+              </a>
+              .
             </label>
           </div>
 

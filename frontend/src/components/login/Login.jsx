@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "@/components/login/Login.css";
 import Icon from "@/components/icon/Icon";
 
@@ -6,11 +7,7 @@ const Login = () => {
   return (
     <div>
       <header className="beatzheader">
-        <Icon
-          name="beatz"
-          alt="Beatz"
-          className="logo-beatz"
-        />
+        <Icon name="beatz" alt="Beatz" className="logo-beatz" />
         <hr />
       </header>
 
@@ -18,31 +15,19 @@ const Login = () => {
         <form>
           <div>
             <button className="facebook">
-              <Icon
-                name="facebook"
-                alt="Facebook"
-                className="logo-facebook"
-              />
+              <Icon name="facebook" alt="Facebook" className="logo-facebook" />
               <span className="button-text">CONTINUE WITH FACEBOOK</span>
             </button>
           </div>
           <div>
             <button className="apple">
-              <Icon
-                name="apple"
-                alt="Apple"
-                className="logo-apple"
-              />
+              <Icon name="apple" alt="Apple" className="logo-apple" />
               <span className="button-text">CONTINUE WITH APPLE</span>
             </button>
           </div>
           <div>
             <button className="google">
-              <Icon
-                name="google"
-                alt="Google"
-                className="logo-google"
-              />
+              <Icon name="google" alt="Google" className="logo-google" />
               <span className="button-text">CONTINUE WITH GOOGLE</span>
             </button>
           </div>
@@ -67,14 +52,14 @@ const Login = () => {
             <button className="login">LOG IN</button>
           </div>
 
-          <hr className="hr3"/>
+          <hr className="hr3" />
           <div className="signup">
             <br />
-            <p>
-              Don't have an account?
-              <br />
-              <button className="signbeatz">Sign up for BEATZ</button>
-            </p>
+            <p>Don't have an account?</p>
+            <br />
+            <Link to="/signup" style={{ textDecoration: "none" }}>
+              <button className="signup-button">Sign up with Beatz</button>
+            </Link>
           </div>
         </form>
       </div>
