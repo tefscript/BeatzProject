@@ -86,16 +86,6 @@ button:hover {
   height: auto;
 }
 
-.apple {
-  background-color: #000;
-  color: white;
-}
-
-.logo-apple {
-  width: 18px;
-  height: auto;
-}
-
 .google {
   background-color: white;
   color: grey;
@@ -277,8 +267,7 @@ input[type="password"] {
   }
 
   .logo-facebook,
-  .logo-google,
-  .logo-apple {
+  .logo-google{
     width: 16px;
   }
 }
