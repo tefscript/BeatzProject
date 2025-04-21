@@ -19,12 +19,7 @@ const Login = () => {
               <span className="button-text">CONTINUE WITH FACEBOOK</span>
             </button>
           </div>
-          <div>
-            <button className="apple">
-              <Icon name="apple" alt="Apple" className="logo-apple" />
-              <span className="button-text">CONTINUE WITH APPLE</span>
-            </button>
-          </div>
+  
           <div>
             <button className="google">
               <Icon name="google" alt="Google" className="logo-google" />
