@@ -4,6 +4,8 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.js';
+import playlistRoutes from './routes/playlistRoutes.js';
+import authenticateToken from './middlewares/authMiddleware.js';
 
 const app = express();
 
@@ -14,5 +16,6 @@ app.use(cors({
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/playlists', authenticateToken, playlistRoutes);
 
 export default app;
