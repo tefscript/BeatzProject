@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "@/components/login/Login.css";
 import Icon from "@/components/icon/Icon";
+import LoginForm from "@/components/login/LoginForm";
 
 const Login = () => {
   return (
@@ -12,51 +13,37 @@ const Login = () => {
       </header>
 
       <div className="container">
-        <form>
-          <div>
-            <button className="facebook">
-              <Icon name="facebook" alt="Facebook" className="logo-facebook" />
-              <span className="button-text">CONTINUE WITH FACEBOOK</span>
-            </button>
-          </div>
-  
-          <div>
-            <button className="google">
-              <Icon name="google" alt="Google" className="logo-google" />
-              <span className="button-text">CONTINUE WITH GOOGLE</span>
-            </button>
-          </div>
-          <div className="or">
-            <hr />
-            <a>OR</a>
-            <hr />
-          </div>
-          <div className="email-password">
-            <a>Email address</a>
-            <input type="email" placeholder="Email address" />
-            <br />
-            <a>Password</a>
-            <input type="password" placeholder="Password" />
-          </div>
+        <div>
+          <button className="facebook">
+            <Icon name="facebook" alt="Facebook" className="logo-facebook" />
+            <span className="button-text">CONTINUE WITH FACEBOOK</span>
+          </button>
+        </div>
 
-          <div className="forgetpassword">
-            <a href="#">Forget your password?</a>
-          </div>
+        <div>
+          <button className="google">
+            <Icon name="google" alt="Google" className="logo-google" />
+            <span className="button-text">CONTINUE WITH GOOGLE</span>
+          </button>
+        </div>
 
-          <div className="button-login">
-            <button className="login">LOG IN</button>
-          </div>
+        <div className="or">
+          <hr />
+          <a>OR</a>
+          <hr />
+        </div>
 
-          <hr className="hr3" />
-          <div className="signup">
-            <br />
-            <p>Don't have an account?</p>
-            <br />
-            <Link to="/signup" style={{ textDecoration: "none" }}>
-              <button className="signup-button">Sign up with Beatz</button>
-            </Link>
-          </div>
-        </form>
+        <LoginForm />
+
+        <hr className="hr3" />
+        <div className="signup">
+          <br />
+          <p>Don't have an account?</p>
+          <br />
+          <Link to="/signup" style={{ textDecoration: "none" }}>
+            <button className="signup-button">Sign up with Beatz</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

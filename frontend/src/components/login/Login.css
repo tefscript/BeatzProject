@@ -128,7 +128,7 @@ input[type="password"] {
 .email-password {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 16px;
   font-weight: 700;
   font-family: "Inter", sans-serif;
 }
@@ -141,6 +141,13 @@ input[type="password"] {
 
 .forgetpassword a:hover {
   text-decoration: underline;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
 }
 
 .button-login {
@@ -238,7 +245,7 @@ input[type="password"] {
 
   .email-password {
     font-size: 13px;
-    gap: 3px;
+    gap: 13px;
   }
 
   .login {
