@@ -9,15 +9,17 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
 
       console.log("Login bem-sucedido:", response.data);
       localStorage.setItem("token", response.data.token);
       window.location.href = "/";
-
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       if (error.response && error.response.data && error.response.data.error) {
@@ -53,8 +55,14 @@ const LoginForm = () => {
       {/* Mensagem de erro */}
       {error && <div className="error-message">{error}</div>}
 
+      <div className="forgetpassword">
+        <a href="#">Forget your password?</a>
+      </div>
+
       <div className="button-login">
-        <button className="login" type="submit">LOG IN</button>
+        <button className="login" type="submit">
+          LOG IN
+        </button>
       </div>
     </form>
   );
