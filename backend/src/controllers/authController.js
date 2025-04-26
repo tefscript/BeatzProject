@@ -1,8 +1,16 @@
     import bcrypt from 'bcryptjs';
     import jwt from 'jsonwebtoken';
     import db from '../config/db.js';
+    import { body } from 'express-validator';
 
     export const login = async (req, res) => {
+
+    await body('email').isEmail().withMessage('Email invalido').run(req);
+    await body('password').isLength({ min: 6 }).withMessage('Senha muito curta').run(req);
+
+    const validationError = checkValidationErrors(req, res);
+    if (validationError) return validationError;
+
     const { email, password } = req.body;
 
     const { data: user, error } = await db.from('users').select('*').eq('email', email).single();
@@ -23,6 +31,19 @@
     };
 
     export const register = async (req, res) => {
+
+        await body('email').isEmail().withMessage('Email inválidoo').run(req);
+        await body('password').isLength({ min: 6 }).withMessage('Senha muito curta')
+        .matches(/[0-9]/).withMessage('Senha deve conter pelo menos um número')
+        .matches(/[a-zA-Z]/)
+        .withMessage('A senha deve conter pelo menos uma letra')
+        .run(req);
+
+        await body('name').notEmpty().withMessage('Nome é obrigatório').run(req);
+
+        const validationError = checkValidationErrors(req, res);
+        if(validationError) return validationError;
+
         const { name, email, password } = req.body;
 
         if (!email) return res.status(400).json({ error: 'Email é obrigatório' });
