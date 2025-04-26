@@ -1,11 +1,18 @@
-const express = require('express');
+import express from 'express';
+import authenticateToken from '../middlewares/authMiddleware.js';
+import * as userController from '../controllers/userController.js';
+
 const router = express.Router();
-const userController = require('../controllers/userController');
 
-router.post('/', userController.createUser); //criar usuario
-router.get('/', userController.getAllUsers); //pegar todos os usuarios
-router.get('/:id', userController.getUserById); //pegar um usuario pelo id
-router.put('/:id', userController.updateUser); //atualizar um usuario pelo id
-router.delete('/:id', userController.deleteUser); //deletar um usuario pelo id
+router.use(authenticateToken);
 
-module.exports = router;
+router.post('/follow', userController.followArtist);
+router.delete('/unfollow', userController.unfollowArtist);
+router.get('/playlists', userController.getPlaylists);
+router.get('/following', userController.getFollowing);
+router.get('/info', userController.getInfo);
+router.get('/profilePhoto', userController.getProfilePhoto);
+router.put('/profilePhoto', userController.setProfilePhoto);
+router.patch('/change-password', userController.changePassword);
+
+export default router;
