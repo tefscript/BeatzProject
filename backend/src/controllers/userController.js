@@ -1,10 +1,6 @@
 import bcrypt from 'bcryptjs';
 import db from '../config/db.js';
-
-function handleError(res, error, status = 500) {
-    console.error(error);
-    return res.status(status).json({ error: error.message || error});
-}
+import { handleError } from '../utils/handleError.js';
 
 export const followArtist = async (req, res) => {
     const { artistId } = req.body;
