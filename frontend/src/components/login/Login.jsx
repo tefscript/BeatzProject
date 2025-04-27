@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "@/components/login/Login.css";
 import Icon from "@/components/icon/Icon";
 import LoginForm from "@/components/login/LoginForm";
+import supabase from "@/config/supabaseClient.js";
 
 const Login = () => {
   return (
@@ -14,14 +15,14 @@ const Login = () => {
 
       <div className="container">
         <div>
-          <button className="facebook">
+          <button className="facebook" onClick = {() => supabase.auth.signInWithOAuth({ provider: "facebook" })}>
             <Icon name="facebook" alt="Facebook" className="logo-facebook" />
             <span className="button-text">CONTINUE WITH FACEBOOK</span>
           </button>
         </div>
 
         <div>
-          <button className="google">
+          <button className="google" onClick={() => supabase.auth.signInWithOAuth({ provider: "google" })}>
             <Icon name="google" alt="Google" className="logo-google" />
             <span className="button-text">CONTINUE WITH GOOGLE</span>
           </button>
