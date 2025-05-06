@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "@/components/signup/SignUp.css";
 import Icon from "@/components/icon/Icon";
 import SignUpForm from "@/components/signup/SignUpForm";
+import supabase from "@/config/supabaseClient.js";
 
 const SignUp = () => {
   return (
@@ -15,14 +16,14 @@ const SignUp = () => {
         <h1 className="h1sign">Sign up and turn up the music.</h1>
 
         <div>
-          <button className="facebook">
+          <button className="facebook" onClick = {() => supabase.auth.signInWithOAuth({ provider: "facebook" })}>
             <Icon name="facebook" alt="Facebook" className="logo-facebook" />
             <span className="button-text">CONTINUE WITH FACEBOOK</span>
           </button>
         </div>
 
         <div>
-          <button className="google">
+          <button className="google" onClick={() => supabase.auth.signInWithOAuth({ provider: "google" })}>
             <Icon name="google" alt="Google" className="logo-google" />
             <span className="button-text">CONTINUE WITH GOOGLE</span>
           </button>

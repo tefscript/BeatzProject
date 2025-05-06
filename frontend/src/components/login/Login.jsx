@@ -8,7 +8,7 @@ import supabase from "@/config/supabaseClient.js";
 const Login = () => {
   return (
     <div>
-      <header className="beatzheader">
+      <header className="beatzheader"> 
         <Icon name="beatz" alt="Beatz" className="logo-beatz" />
         <hr />
       </header>
