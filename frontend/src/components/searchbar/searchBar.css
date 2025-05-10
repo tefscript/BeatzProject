@@ -1,0 +1,38 @@
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #d9d9d9;
+    border-radius:25px;
+    padding: 8px 12px;
+    width: 100%;
+    max-width: 400%;
+    margin: 0 auto;
+    color: #181414;
+}
+
+.search-bar input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #181414;
+    font-size: 16px;
+    margin-left: 0 8px;
+}
+
+.icon-search {
+    width: 20px;
+    height: auto;
+}
+
+.clear-button {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.icon-cancel {
+    width: 16px;
+    height: auto;
+}
