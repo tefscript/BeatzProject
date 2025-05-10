@@ -1,0 +1,12 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "indent": ["error", 2],          // Indentação de 2 espaços
+    "semi": "error",                 // Obriga ponto e vírgula
+    "no-console": "warn",            // Permite console.log com aviso
+    "import/no-unresolved": "off"    // Ignora erros de importação de módulos do Node
+  },
+  "env": {
+    "node": true
+  }
+}
