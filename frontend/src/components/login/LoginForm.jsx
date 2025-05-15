@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "@/components/login/LoginForm.css";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -35,6 +36,7 @@ const LoginForm = () => {
       <div className="email-password">
         <label>Email address</label>
         <input
+          className="login-signup-input"
           type="email"
           placeholder="Email address"
           value={email}
@@ -49,6 +51,7 @@ const LoginForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className="login-signup-input"
         />
       </div>
 

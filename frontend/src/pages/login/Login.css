@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+.body-login {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container-login {
+  width: 495px;
+  padding: 20px;
+  margin-top: 120px;
+}
+
+.body-login div {
+  margin-bottom: 15px;
+}
+
+.signup button,
+.google,
+.facebook {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 45px;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.body-login button:hover,
+.body-signup button:hover {
+  background-color: #e0e0e0;
+}
+
+.or {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 20px;
+  font-weight: 700;
+  font-size: 15px;
+  font-family: "Inter", sans-serif;
+}
+
+.or hr {
+  width: 95%;
+  border: none;
+  border-top: 3px solid rgb(217, 218, 220, 0.5);
+  border-radius: 5px;
+}
+
+.hr3 {
+  width: 100%;
+  margin: 20px 0;
+  border: none;
+  border-top: 2px solid rgb(217, 218, 220, 0.5);
+  border-radius: 5px;
+}
+
+.signup p {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  align-items: center;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+}
+
+.signup button {
+  background-color: white;
+  color: grey;
+  border: 1px solid #ccc;
+}
+
+@media (max-height: 834px) {
+  .container-login {
+    margin-top: 100px;
+    width: 360px;
+    padding: 15px;
+  }
+
+  .body-login button,
+  .body-signup button {
+    height: 32px;
+    font-size: 12px;
+    gap: 6px;
+    padding: 6px 10px;
+  }
+
+  .button-text {
+    font-size: 11px;
+  }
+
+  .signup p {
+    font-size: 12px;
+    gap: 7px;
+  }
+
+  .or {
+    font-size: 12px;
+    gap: 8px;
+    padding: 6px;
+  }
+
+  .hr3 {
+    margin: 12px 0;
+  }
+}

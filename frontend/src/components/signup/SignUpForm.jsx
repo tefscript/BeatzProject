@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "@/components/signup/SignUpForm.css";
 
 function SignUpForm() {
   const [name, setName] = useState("");
@@ -53,6 +54,7 @@ function SignUpForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          className="login-signup-input"
         />
         <br />
         <br />
@@ -64,6 +66,7 @@ function SignUpForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className="login-signup-input"
         />
         <br />
         <br />
@@ -75,6 +78,7 @@ function SignUpForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          className="login-signup-input"
         />
 
         <div className="profile">
