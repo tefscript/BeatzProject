@@ -117,14 +117,20 @@ export const getSongsFromPlaylist = async (req, res) => {
   if(playlistError) return res.status(500).json({error: playlistError.message});
   if(!playlist) return res.status(404).json({error: 'Playlist nao encontrada'});
 
-  const { data: songs, error: error} = await db.from('playlists_songs').select('songs(*)').eq('playlist_id', playlistId);
+  const { data: songs, error } = await db
+    .from('playlists_songs')
+    .select('songs(*, album:albums(cover_url))')
+    .eq('playlist_id', playlistId);
 
   if (error) return handleError(res, error);
 
-  res.status(200).json({songs: songs.map(item => item.songs)});
-
+  res.status(200).json({
+    songs: songs.map(item => ({
+      ...item.songs,
+      cover_url: item.songs.album?.cover_url || null
+    }))
+  });
 };
-
 
 export const getTotalMusics = async (req, res) => {
   const { playlistId } = req.params;

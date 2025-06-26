@@ -111,6 +111,7 @@ router.use(authenticateToken);
 router.get('/:musicId', musicController.getMusicInfo);
 router.patch('/:musicId/audio-url', musicController.setUrlAudio);
 router.get('/:musicId/duration', musicController.getDurationFormatted);
+router.get('/', musicController.searchMusics);
 
 export default router;
 

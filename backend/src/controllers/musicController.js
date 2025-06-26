@@ -40,3 +40,20 @@ export const setUrlAudio = async (req, res) => {
 
   return res.json({ message: 'Url do audio atualizada com sucesso!' });
 };
+
+export const searchMusics = async (req, res) => {
+  const { search } = req.query;
+  // Join com albums para trazer cover_url
+  let query = db.from('songs').select('*, album:albums(cover_url)');
+  if (search) {
+    query = query.ilike('title', `%${search}%`);
+  }
+  const { data, error } = await query;
+  if (error) return handleError(res, error);
+  // Adiciona cover_url do álbum no objeto da música
+  const musics = data.map(song => ({
+    ...song,
+    cover_url: song.album?.cover_url || null
+  }));
+  res.json(musics);
+};

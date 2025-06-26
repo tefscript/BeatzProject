@@ -184,6 +184,7 @@ router.get('/:albumId/songs', albumController.getMusicsFromAlbum);
 router.post('/:albumId/songs', albumController.addMusicToAlbum);
 router.delete('/:albumId/songs', albumController.removeMusicFromAlbum);
 router.patch('/:albumId/cover', albumController.setCoverPhoto);
+router.get('/', albumController.searchAlbums);
 
 export default router;
 

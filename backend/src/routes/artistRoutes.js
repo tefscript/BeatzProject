@@ -141,6 +141,7 @@ router.get('/:artistId', artistController.getArtistInfo);
 router.patch('/:artistId', artistController.updateArtistName);
 router.get('/:artistId/followers', artistController.getFollowers);
 router.get('/:artistId/songs', artistController.getMusics);
+router.get('/', artistController.searchArtists);
 
 export default router;
 

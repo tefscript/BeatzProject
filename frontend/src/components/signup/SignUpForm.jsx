@@ -30,15 +30,20 @@ function SignUpForm() {
       });
 
       const data = await response.json();
+      console.log("Resposta do backend:", data);
 
       if (!response.ok) {
-        setError(data.error || "Erro ao cadastrar");
+        if (data.errors && Array.isArray(data.errors)) {
+          setError(data.errors.map(e => e.msg).join(" | "));
+        } else {
+          setError(data.error || JSON.stringify(data) || "Erro ao cadastrar");
+        }
         return;
       }
 
       setSuccess("Cadastro realizado com sucesso!");
-      // Você pode salvar o token aqui se quiser:
-      // localStorage.setItem('token', data.token);
+      localStorage.setItem('token', data.token);
+      window.location.href = "/";
     } catch (err) {
       setError("Erro ao conectar com o servidor");
     }

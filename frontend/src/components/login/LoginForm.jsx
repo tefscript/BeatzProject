@@ -1,17 +1,24 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "@/config/api";
 import "@/components/login/LoginForm.css";
+import { useUser } from "@/context/UserContext";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { saveUser } = useUser();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
+    
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+      console.log("Tentando login com:", email);
+      const response = await api.post(
+        "/api/auth/login",
         {
           email,
           password,
@@ -20,14 +27,26 @@ const LoginForm = () => {
 
       console.log("Login bem-sucedido:", response.data);
       localStorage.setItem("token", response.data.token);
+      saveUser({ name: response.data.user.name, email: response.data.user.email, avatar: null });
       window.location.href = "/";
     } catch (error) {
       console.error("Erro ao fazer login:", error);
-      if (error.response && error.response.data && error.response.data.error) {
-        setError(error.response.data.error); // <- vem do backend
+      console.error("Status:", error.response?.status);
+      console.error("Data:", error.response?.data);
+      
+      if (error.response?.status === 401) {
+        setError("Email ou senha incorretos");
+      } else if (error.response?.status === 400) {
+        setError(error.response.data.error || "Dados inválidos");
+      } else if (error.code === 'ECONNREFUSED' || error.message.includes('Network Error')) {
+        setError("Erro ao conectar com o servidor. Verifique se o backend está rodando.");
+      } else if (error.response?.data?.error) {
+        setError(error.response.data.error);
       } else {
-        setError("Erro ao fazer login");
+        setError("Erro ao fazer login. Tente novamente.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,6 +61,7 @@ const LoginForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          disabled={loading}
         />
 
         <label>Password</label>
@@ -52,6 +72,7 @@ const LoginForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
           className="login-signup-input"
+          disabled={loading}
         />
       </div>
 
@@ -63,8 +84,8 @@ const LoginForm = () => {
       </div>
 
       <div className="button-login">
-        <button className="login" type="submit">
-          LOG IN
+        <button className="login" type="submit" disabled={loading}>
+          {loading ? "LOGANDO..." : "LOG IN"}
         </button>
       </div>
     </form>

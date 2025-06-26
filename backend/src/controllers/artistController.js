@@ -43,3 +43,12 @@ export const getMusics = async (req, res) => {
 
   return res.json(data);
 };
+
+export const searchArtists = async (req, res) => {
+  const { search } = req.query;
+  let query = db.from('artists').select('*');
+  if (search) query = query.ilike('name', `%${search}%`);
+  const { data, error } = await query;
+  if (error) return handleError(res, error);
+  res.json(data);
+};

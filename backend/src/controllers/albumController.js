@@ -14,11 +14,18 @@ export const getAlbumInfo = async (req, res) => {
 export const getMusicsFromAlbum = async (req, res) => {
   const { albumId } = req.params;
 
-  const { data, error } = await db.from('songs').select('*').eq('album_id', albumId);
+  const { data, error } = await db
+    .from('songs')
+    .select('*, album:albums(cover_url)')
+    .eq('album_id', albumId);
 
   if (error) return handleError(res, error);
 
-  return res.json(data);
+  const musics = data.map(song => ({
+    ...song,
+    cover_url: song.album?.cover_url || null
+  }));
+  return res.json(musics);
 };
 
 export const addMusicToAlbum = async (req, res) => {
@@ -58,4 +65,13 @@ export const setCoverPhoto = async (req, res) => {
   if (error) return handleError(res, error);
 
   return res.json({ message: 'Capa do álbum atualizada com sucesso!' });
+};
+
+export const searchAlbums = async (req, res) => {
+  const { search } = req.query;
+  let query = db.from('albums').select('*');
+  if (search) query = query.ilike('name', `%${search}%`);
+  const { data, error } = await query;
+  if (error) return handleError(res, error);
+  res.json(data);
 };
