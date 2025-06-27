@@ -29,11 +29,11 @@ function ProtectedRoutes() {
 
 function App() {
   const token = localStorage.getItem("token");
-  
+
   // Debug: verificar se o token existe
   console.log("Token no localStorage:", token);
   console.log("Token existe?", !!token);
-  
+
   // Se não há token, redirecionar para login
   if (!token) {
     console.log("Redirecionando para login...");
@@ -51,7 +51,7 @@ function App() {
       </UserProvider>
     );
   }
-  
+
   // Se há token, mostrar rotas protegidas
   console.log("Mostrando rotas protegidas...");
   return (

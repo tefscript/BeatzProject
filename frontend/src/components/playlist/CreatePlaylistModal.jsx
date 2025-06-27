@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import "@/components/playlist/CreatePlaylistModal.css";
 
-export default function CreatePlaylistModal({ onClose }) {
+export default function CreatePlaylistModal({ isOpen, onClose }) {
   const [playlistName, setPlaylistName] = useState("");
 
   const handleCreate = async () => {
@@ -23,7 +24,7 @@ export default function CreatePlaylistModal({ onClose }) {
         },
         body: JSON.stringify({
           name: playlistName,
-          cover_url: null
+          cover_url: null,
         }),
       });
 
@@ -43,38 +44,59 @@ export default function CreatePlaylistModal({ onClose }) {
     }
   };
 
+  return createPortal(
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 2000,
+        background: "rgba(0,0,0,0.4)",
+        display: "flex",
+        alignItems: "stretch",
+        justifyContent: "flex-start",
+      }}
+      onClick={onClose}
+    >
+      <div
+        className={`body-create-playlist ${isOpen ? "slide-in" : "slide-out"}`}
+        style={{
+          boxShadow: "2px 0 16px rgba(0,0,0,0.2)",
+          transition: "transform 0.4s cubic-bezier(.4,1.2,.6,1)",
+          transform: isOpen ? "translateX(0)" : "translateX(-100%)",
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="container-create-playlist">
+          <h1 className="text1-create-playlist">
+            Create a <br /> Playlist
+          </h1>
 
-  return (
-    <div className="body-create-playlist">
-      <div className="container-create-playlist">
-        <h1 className="text1-create-playlist">
-          Create a <br /> Playlist
-        </h1>
+          <hr className="hr-create-playlist" />
 
-        <hr className="hr-create-playlist" />
+          <div className="create-playlist-form">
+            <label htmlFor="playlist-name" className="create-playlist-label">
+              WHAT'S THE NAME OF YOUR NEW PLAYLIST?
+            </label>
+            <br />
+            <br />
+            <input
+              id="playlist-name"
+              type="text"
+              value={playlistName}
+              onChange={(e) => setPlaylistName(e.target.value)}
+              placeholder="Type here..."
+              className="create-playlist-input"
+            />
+          </div>
 
-        <div className="create-playlist-form">
-          <label htmlFor="playlist-name" className="create-playlist-label">
-            WHAT’S THE NAME OF YOUR NEW PLAYLIST?
-          </label>
-          <br/>
-          <br/>
-          <input
-            id="playlist-name"
-            type="text"
-            value={playlistName}
-            onChange={(e) => setPlaylistName(e.target.value)}
-            placeholder="Type here..."
-            className="create-playlist-input"
-          />
-        </div>
-
-        <div className="create-playlist-button">
-          <button onClick={handleCreate} className="cp-button">
-            CREATE
-          </button>
+          <div className="create-playlist-button">
+            <button onClick={handleCreate} className="cp-button">
+              CREATE
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
