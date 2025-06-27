@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import api from "@/config/api";
 import "@/components/login/LoginForm.css";
 import { useUser } from "@/context/UserContext";
+import supabase from "@/config/supabaseClient";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ const LoginForm = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { saveUser } = useUser();
+  const [resetMessage, setResetMessage] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -50,6 +52,20 @@ const LoginForm = () => {
     }
   };
 
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    const inputEmail = email || window.prompt("Digite seu email para redefinir a senha:");
+    if (!inputEmail) return;
+    setResetMessage("");
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(inputEmail, { redirectTo: window.location.origin + "/login" });
+      if (error) throw error;
+      setResetMessage("Enviamos um link de redefinição para seu email.");
+    } catch (err) {
+      setResetMessage("Erro ao enviar email de redefinição: " + (err.message || err.error_description));
+    }
+  };
+
   return (
     <form onSubmit={handleLogin}>
       <div className="email-password">
@@ -80,8 +96,10 @@ const LoginForm = () => {
       {error && <div className="error-message">{error}</div>}
 
       <div className="forgetpassword">
-        <a href="#">Forget your password?</a>
+        <a href="#" onClick={handleForgotPassword}>Forget your password?</a>
       </div>
+
+      {resetMessage && <div className="reset-message">{resetMessage}</div>}
 
       <div className="button-login">
         <button className="login" type="submit" disabled={loading}>

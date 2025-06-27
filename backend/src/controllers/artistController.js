@@ -5,6 +5,7 @@ export const getArtistInfo = async (req, res) => {
   const { artistId } = req.params;
 
   const { data, error } = await db.from('artists').select('*').eq('id', artistId).single();
+  console.log('DEBUG ARTIST', { artistId, data, error });
 
   if (error) return handleError(res, error);
 
@@ -41,7 +42,7 @@ export const getMusics = async (req, res) => {
 
   if (error) return handleError(res, error);
 
-  return res.json(data);
+  return res.json(data || []);
 };
 
 export const searchArtists = async (req, res) => {

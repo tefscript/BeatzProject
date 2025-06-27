@@ -1,18 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FiUser, FiChevronDown, FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-
-// Mock do usuário logado (substituir por dados reais depois)
-const user = {
-  name: "tani tani",
-  email: "tani@gmail.com",
-  avatar: null // ou URL da imagem
-};
+import { useUser } from "@/context/UserContext";
 
 const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
   const navigate = useNavigate();
+  const { user, clearUser } = useUser();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -26,9 +21,11 @@ const ProfileDropdown = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    clearUser();
     window.location.href = "/login";
   };
 
+  if (!user) return null;
   return (
     <div ref={ref} style={{ position: "relative", display: "inline-block" }}>
       <button

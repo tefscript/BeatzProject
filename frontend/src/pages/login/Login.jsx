@@ -19,7 +19,6 @@ const Login = () => {
       console.log("Usuário do Supabase:", user);
       
       if (user) {
-        // Chama o backend para obter o token JWT
         try {
           console.log("Tentando login social com:", user.email);
           const res = await api.post("/api/auth/social-login", {
@@ -28,11 +27,15 @@ const Login = () => {
           });
           console.log("Resposta do backend:", res.data);
           localStorage.setItem("token", res.data.token);
-          saveUser({ name: res.data.user.name, email: res.data.user.email, avatar: null });
+          // Salva nome, email e avatar (se disponível)
+          saveUser({
+            name: res.data.user.name || user.user_metadata?.name || user.email,
+            email: res.data.user.email || user.email,
+            avatar: user.user_metadata?.avatar_url || null
+          });
           navigate("/");
         } catch (err) {
           console.error("Erro no login social:", err);
-          // Se der erro, faz logout do Supabase e mostra erro
           await supabase.auth.signOut();
           alert(`Erro ao autenticar com o backend: ${err.response?.data?.error || err.message}. Tente novamente.`);
         }

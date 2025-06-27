@@ -6,13 +6,20 @@ export const getAlbumInfo = async (req, res) => {
 
   const { data, error } = await db
     .from("albums")
-    .select("*")
+    .select("*, artist:artists(name)")
     .eq("id", albumId)
     .single();
 
+  console.log('DEBUG ALBUM', { albumId, data, error });
+
   if (error) return handleError(res, error);
 
-  return res.json(data);
+  const album = {
+    ...data,
+    artist_name: data.artist?.name || null
+  };
+
+  return res.json(album);
 };
 
 export const getMusicsFromAlbum = async (req, res) => {
@@ -25,7 +32,7 @@ export const getMusicsFromAlbum = async (req, res) => {
 
   if (error) return handleError(res, error);
 
-  const musics = data.map((song) => ({
+  const musics = (data || []).map((song) => ({
     ...song,
     cover_url: song.album?.cover_url || null,
   }));

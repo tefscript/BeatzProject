@@ -10,6 +10,7 @@ import Player from "@/components/player/Player";
 import { PlayerProvider, usePlayer } from "@/context/PlayerContext";
 import UserPage from "@/pages/home/UserPage";
 import { UserProvider } from "@/context/UserContext";
+import AlbumPage from "@/pages/album/AlbumPage";
 
 function ProtectedRoutes() {
   const { currentMusic } = usePlayer();
@@ -21,6 +22,7 @@ function ProtectedRoutes() {
         <Route path="/playlist/:id" element={<PlaylistPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/account" element={<UserPage />} />
+        <Route path="/album/:id" element={<AlbumPage />} />
       </Routes>
       <Player music={currentMusic} />
     </>

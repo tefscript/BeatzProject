@@ -271,6 +271,10 @@ const SearchPage = () => {
                         onMouseOut={(e) =>
                           (e.currentTarget.style.background = "#232428")
                         }
+                        onClick={() => {
+                          console.log('Navegando para álbum:', album.id, album);
+                          navigate(`/album/${album.id}`);
+                        }}
                       >
                         <div
                           style={{
@@ -477,7 +481,10 @@ const SearchPage = () => {
                       onMouseOut={(e) =>
                         (e.currentTarget.style.background = "#232428")
                       }
-                      onClick={() => navigate(`/artist/${artist.id}`)}
+                      onClick={() => {
+                        console.log('Navegando para artista:', artist.id, artist);
+                        navigate(`/artist/${artist.id}`);
+                      }}
                     >
                       <div
                         style={{

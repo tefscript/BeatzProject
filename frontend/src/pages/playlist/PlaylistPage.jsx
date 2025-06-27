@@ -30,7 +30,7 @@ const PlaylistPage = () => {
     const fetchPlaylist = async () => {
       try {
         const resPlaylist = await api.get(`/api/playlists/${id}`);
-        setPlaylist(resPlaylist.data);
+        setPlaylist(resPlaylist.data.playlist);
         if (resPlaylist.data.musics) {
           setMusics(resPlaylist.data.musics);
           const covers = await getMultipleAlbumCovers(resPlaylist.data.musics.map(m => m.album_id));
@@ -90,7 +90,7 @@ const PlaylistPage = () => {
       // Atualizar lista de músicas
       setLoading(true);
       const resPlaylist = await api.get(`/api/playlists/${id}`);
-      setPlaylist(resPlaylist.data);
+      setPlaylist(resPlaylist.data.playlist);
       if (resPlaylist.data.musics) {
         setMusics(resPlaylist.data.musics);
         const covers = await getMultipleAlbumCovers(resPlaylist.data.musics.map(m => m.album_id));
@@ -110,7 +110,7 @@ const PlaylistPage = () => {
       // Atualizar lista de músicas
       setLoading(true);
       const resPlaylist = await api.get(`/api/playlists/${id}`);
-      setPlaylist(resPlaylist.data);
+      setPlaylist(resPlaylist.data.playlist);
       if (resPlaylist.data.musics) {
         setMusics(resPlaylist.data.musics);
         const covers = await getMultipleAlbumCovers(resPlaylist.data.musics.map(m => m.album_id));
