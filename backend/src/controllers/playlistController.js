@@ -51,12 +51,25 @@ export const getPlaylistById = async (req, res) => {
 
   if(!userId) return res.status(401).json({error: 'Usuário não autenticado'});
 
-  const {data, error} = await db.from('playlists').select().match({id: playlistId, user_id: userId}).maybeSingle();
-
+  const {data: playlist, error} = await db.from('playlists').select().match({id: playlistId, user_id: userId}).maybeSingle();
   if (error) return handleError(res, error);
-  if(!data) return res.status(404).json({error: 'Playlist nao encontrada'});
+  if(!playlist) return res.status(404).json({error: 'Playlist nao encontrada'});
 
-  res.status(200).json({playlist: data});
+  // Buscar músicas da playlist
+  const { data: songs, error: songsError } = await db
+    .from('playlists_songs')
+    .select('songs(*, album:albums(cover_url))')
+    .eq('playlist_id', playlistId);
+
+  if (songsError) return handleError(res, songsError);
+
+  // Formatar músicas
+  const musics = songs.map(item => ({
+    ...item.songs,
+    cover_url: item.songs.album?.cover_url || null
+  }));
+
+  res.status(200).json({ playlist, musics });
 };
 
 export const searchPlaylistByName = async (req, res) => {

@@ -44,7 +44,7 @@ function SignUpForm() {
       setSuccess("Cadastro realizado com sucesso!");
       localStorage.setItem('token', data.token);
       window.location.href = "/";
-    } catch (err) {
+    } catch {
       setError("Erro ao conectar com o servidor");
     }
   };

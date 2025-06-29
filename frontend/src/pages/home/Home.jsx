@@ -8,24 +8,6 @@ import ProfileDropdown from "@/components/header/ProfileDropdown";
 import CreatePlaylistModal from "@/components/playlist/CreatePlaylistModal";
 import { usePlayer } from "@/context/PlayerContext";
 
-const mockPlaylists = [
-  {
-    id: 1,
-    name: "Dan & Hayley",
-    cover_url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-  },
-  {
-    id: 2,
-    name: "SOS",
-    cover_url: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca",
-  },
-  {
-    id: 3,
-    name: "Stranger in the Alps",
-    cover_url: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4",
-  },
-];
-
 // Função para saudação dinâmica
 function getGreeting() {
   // Usar uma variável global que pode ser alterada via console
@@ -71,7 +53,7 @@ const Home = () => {
       try {
         const response = await api.get("/api/user/playlists");
         setPlaylists(response.data);
-      } catch (err) {
+      } catch {
         setError("Erro ao carregar playlists");
       } finally {
         setLoading(false);
@@ -100,7 +82,7 @@ const Home = () => {
             .map((r) => r.value.data);
           setArtists(artistsData);
         }
-      } catch (err) {
+      } catch {
         setErrorArtists("Erro ao carregar artistas seguidos");
       } finally {
         setLoadingArtists(false);
@@ -131,19 +113,12 @@ const Home = () => {
           .sort(() => Math.random() - 0.5)
           .slice(0, 5);
         setSuggestions(allSuggestions);
-      } catch (e) {
+      } catch {
         setSuggestions([]);
       }
     }
     fetchSuggestions();
   }, []);
-
-  // Handler para pesquisa
-  const [search, setSearch] = useState("");
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (search.trim()) navigate(`/search?query=${encodeURIComponent(search)}`);
-  };
 
   return (
     <div style={{ display: "flex", background: "#18191A", minHeight: "100vh" }}>

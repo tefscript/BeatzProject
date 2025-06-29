@@ -7,7 +7,6 @@ import { FiSearch } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { FiChevronRight } from "react-icons/fi";
 import ProfileDropdown from "@/components/header/ProfileDropdown";
-import { useUser } from "@/context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const FILTERS = [
@@ -27,17 +26,14 @@ const SearchPage = () => {
   });
   const [albumCovers, setAlbumCovers] = useState(new Map());
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
   const { playMusic } = usePlayer();
   const [followingArtists, setFollowingArtists] = useState([]);
-  const { user } = useUser();
   const navigate = useNavigate();
 
   const handleSearch = async (e) => {
     if (e) e.preventDefault();
     setLoading(true);
-    setError("");
     try {
       // Busca real em cada endpoint
       const [musicsRes, artistsRes, albumsRes] = await Promise.all([
@@ -58,7 +54,7 @@ const SearchPage = () => {
         setAlbumCovers(covers);
       }
     } catch (err) {
-      setError("Erro ao buscar");
+      console.error("Erro ao buscar:", err);
     } finally {
       setLoading(false);
     }
@@ -78,7 +74,7 @@ const SearchPage = () => {
       try {
         const res = await api.get("/api/user/following");
         setFollowingArtists(res.data);
-      } catch (err) {
+      } catch {
         setFollowingArtists([]);
       }
     }
@@ -226,8 +222,6 @@ const SearchPage = () => {
         {/* Resultados */}
         {loading ? (
           <div style={{ textAlign: "center", color: "#aaa" }}>Buscando...</div>
-        ) : error ? (
-          <div style={{ textAlign: "center", color: "#ff4d4f" }}>{error}</div>
         ) : (
           <>
             {/* Albums */}
@@ -245,9 +239,6 @@ const SearchPage = () => {
                   }}
                 >
                   {res.albums.map((album) => {
-                    const artist = res.artists.find(
-                      (a) => a.id === album.artist_id
-                    );
                     return (
                       <div
                         key={album.id}

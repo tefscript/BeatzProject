@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Sidebar from "@/components/sidebar/Sidebar";
 import api from "@/config/api";
 import { usePlayer } from "@/context/PlayerContext";
@@ -7,7 +7,6 @@ import ProfileDropdown from "@/components/header/ProfileDropdown";
 
 const AlbumPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [album, setAlbum] = useState(null);
   const [musics, setMusics] = useState([]);
   const [loading, setLoading] = useState(true);

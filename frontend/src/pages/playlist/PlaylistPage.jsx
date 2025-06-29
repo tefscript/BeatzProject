@@ -17,7 +17,6 @@ const PlaylistPage = () => {
   const [musics, setMusics] = useState([]);
   const [albumCovers, setAlbumCovers] = useState(new Map());
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const { playMusic } = usePlayer();
@@ -38,8 +37,8 @@ const PlaylistPage = () => {
         } else {
           setMusics([]);
         }
-      } catch (err) {
-        setError("Erro ao carregar playlist");
+      } catch {
+        // setError("Erro ao carregar playlist");
       } finally {
         setLoading(false);
       }
@@ -53,7 +52,7 @@ const PlaylistPage = () => {
       await api.put(`/api/playlists/${id}`, { name: newName });
       setPlaylist((p) => ({ ...p, name: newName }));
       setShowEdit(false);
-    } catch (err) {
+    } catch {
       alert("Erro ao editar playlist");
     }
   };
@@ -64,7 +63,7 @@ const PlaylistPage = () => {
       await api.delete(`/api/playlists/${id}`);
       setShowDelete(false);
       navigate("/");
-    } catch (err) {
+    } catch {
       alert("Erro ao deletar playlist");
     }
   };
@@ -132,9 +131,7 @@ const PlaylistPage = () => {
         </div>
         {loading ? (
           <div style={{ color: "#aaa" }}>Carregando playlist...</div>
-        ) : error ? (
-          <div style={{ color: "#ff4d4f" }}>{error}</div>
-        ) : playlist ? (
+        ) : (
           <>
             {/* Header da playlist */}
             <div style={{ display: "flex", alignItems: "center", gap: 40, marginBottom: 40 }}>
@@ -252,7 +249,7 @@ const PlaylistPage = () => {
               </div>
             )}
           </>
-        ) : null}
+        )}
       </main>
     </div>
   );

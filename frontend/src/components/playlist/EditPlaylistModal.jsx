@@ -15,7 +15,7 @@ export default function EditPlaylistModal({ playlist, onSave, onCancel }) {
     try {
       // Chame a API de edição aqui se necessário
       await onSave(name);
-    } catch (err) {
+    } catch {
       setError("Erro ao salvar");
     } finally {
       setLoading(false);

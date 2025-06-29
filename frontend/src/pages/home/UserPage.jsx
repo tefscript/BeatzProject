@@ -32,7 +32,7 @@ const UserPage = () => {
       }
       const fileExt = file.name.split('.').pop();
       const fileName = `${user.email.replace(/[^a-zA-Z0-9]/g, "")}_${Date.now()}.${fileExt}`;
-      const { data, error } = await supabase.storage.from('avatars').upload(fileName, file, { upsert: true });
+      const { error } = await supabase.storage.from('avatars').upload(fileName, file, { upsert: true });
       if (error) throw error;
       const { data: publicUrl } = supabase.storage.from('avatars').getPublicUrl(fileName);
       await api.put('/api/user/profilePhoto', { url: publicUrl.publicUrl });

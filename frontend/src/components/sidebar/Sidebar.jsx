@@ -7,7 +7,6 @@ import CreatePlaylistModal from "@/components/playlist/CreatePlaylistModal";
 const Sidebar = () => {
   const [playlists, setPlaylists] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const navigate = useNavigate();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
@@ -17,8 +16,8 @@ const Sidebar = () => {
       try {
         const res = await api.get("/api/user/playlists");
         setPlaylists(res.data);
-      } catch (err) {
-        setError("Erro ao carregar playlists");
+      } catch {
+        // setError("Erro ao carregar playlists");
       } finally {
         setLoading(false);
       }
@@ -166,90 +165,90 @@ const Sidebar = () => {
       >
         {loading ? (
           <span style={{ color: "#aaa", fontSize: 12 }}>Carregando...</span>
-        ) : error ? (
-          <span style={{ color: "#ff4d4f", fontSize: 12 }}>{error}</span>
-        ) : playlists.length === 0 ? (
-          <span style={{ color: "#aaa", fontSize: 12 }}>Nenhuma playlist</span>
         ) : (
-          playlists.map((playlist) => (
-            <div
-              key={playlist.id}
-              style={{
-                width: 48,
-                height: 48,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                position: "relative",
-                marginBottom: 2,
-              }}
-              onClick={() => navigate(`/playlist/${playlist.id}`)}
-              title={playlist.name}
-            >
-              {playlist.cover_url ? (
-                <img
-                  src={playlist.cover_url}
-                  alt={playlist.name}
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 8,
-                    objectFit: "cover",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
-                    background: "#222",
-                    transition: "transform 0.2s",
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.transform = "scale(1.08)")
-                  }
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.transform = "scale(1)")
-                  }
-                />
-              ) : (
-                <div
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 8,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: "#181818",
-                    color: "#b3b3b3",
-                    fontSize: 22,
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
-                  }}
-                >
-                  ♫
-                </div>
-              )}
-              {/* Tooltip customizado */}
-              <span
+          playlists.length === 0 ? (
+            <span style={{ color: "#aaa", fontSize: 12 }}>Nenhuma playlist</span>
+          ) : (
+            playlists.map((playlist) => (
+              <div
+                key={playlist.id}
                 style={{
-                  position: "absolute",
-                  left: 56,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  background: "#000",
-                  color: "#fff",
-                  fontSize: 12,
-                  borderRadius: 4,
-                  padding: "2px 8px",
-                  opacity: 0,
-                  pointerEvents: "none",
-                  whiteSpace: "nowrap",
-                  zIndex: 50,
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.24)",
-                  transition: "opacity 0.2s",
+                  width: 48,
+                  height: 48,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  position: "relative",
+                  marginBottom: 2,
                 }}
-                className="sidebar-tooltip"
+                onClick={() => navigate(`/playlist/${playlist.id}`)}
+                title={playlist.name}
               >
-                {playlist.name}
-              </span>
-            </div>
-          ))
+                {playlist.cover_url ? (
+                  <img
+                    src={playlist.cover_url}
+                    alt={playlist.name}
+                    style={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: 8,
+                      objectFit: "cover",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+                      background: "#222",
+                      transition: "transform 0.2s",
+                    }}
+                    onMouseOver={(e) =>
+                      (e.currentTarget.style.transform = "scale(1.08)")
+                    }
+                    onMouseOut={(e) =>
+                      (e.currentTarget.style.transform = "scale(1)")
+                    }
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: 8,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "#181818",
+                      color: "#b3b3b3",
+                      fontSize: 22,
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+                    }}
+                  >
+                    ♫
+                  </div>
+                )}
+                {/* Tooltip customizado */}
+                <span
+                  style={{
+                    position: "absolute",
+                    left: 56,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "#000",
+                    color: "#fff",
+                    fontSize: 12,
+                    borderRadius: 4,
+                    padding: "2px 8px",
+                    opacity: 0,
+                    pointerEvents: "none",
+                    whiteSpace: "nowrap",
+                    zIndex: 50,
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.24)",
+                    transition: "opacity 0.2s",
+                  }}
+                  className="sidebar-tooltip"
+                >
+                  {playlist.name}
+                </span>
+              </div>
+            ))
+          )
         )}
       </div>
 

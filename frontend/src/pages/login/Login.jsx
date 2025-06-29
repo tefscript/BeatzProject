@@ -14,41 +14,74 @@ const Login = () => {
 
   useEffect(() => {
     const checkSession = async () => {
+      console.log("=== Verificando sessão do Supabase ===");
       const { data } = await supabase.auth.getSession();
       const user = data.session?.user;
       console.log("Usuário do Supabase:", user);
+      console.log("Sessão completa:", data.session);
       
       if (user) {
         try {
-          console.log("Tentando login social com:", user.email);
+          console.log("=== Iniciando login social ===");
+          console.log("Email do usuário:", user.email);
+          console.log("Metadata do usuário:", user.user_metadata);
+          
           const res = await api.post("/api/auth/social-login", {
             email: user.email,
             name: user.user_metadata?.name || user.email,
           });
           console.log("Resposta do backend:", res.data);
+          
           localStorage.setItem("token", res.data.token);
+          console.log("Token salvo no localStorage");
+          
+          // Verifica se o token foi salvo corretamente
+          const savedToken = localStorage.getItem("token");
+          console.log("Token verificado após salvar:", savedToken ? "SIM" : "NÃO");
+          
           // Salva nome, email e avatar (se disponível)
-          saveUser({
+          const userData = {
             name: res.data.user.name || user.user_metadata?.name || user.email,
             email: res.data.user.email || user.email,
             avatar: user.user_metadata?.avatar_url || null
-          });
-          navigate("/");
+          };
+          console.log("Dados do usuário a serem salvos:", userData);
+          saveUser(userData);
+          
+          console.log("=== Redirecionando para home ===");
+          // Pequeno timeout para garantir que os dados sejam salvos
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 100);
         } catch (err) {
-          console.error("Erro no login social:", err);
+          console.error("=== Erro no login social ===");
+          console.error("Erro completo:", err);
+          console.error("Response data:", err.response?.data);
+          console.error("Response status:", err.response?.status);
+          
           await supabase.auth.signOut();
           alert(`Erro ao autenticar com o backend: ${err.response?.data?.error || err.message}. Tente novamente.`);
         }
+      } else {
+        console.log("Nenhum usuário encontrado na sessão do Supabase");
       }
     };
+    
     checkSession();
+    
     // Escuta mudanças de autenticação
     const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log("Evento de auth:", event, session?.user);
+      console.log("=== Evento de auth do Supabase ===");
+      console.log("Evento:", event);
+      console.log("Sessão:", session);
+      console.log("Usuário:", session?.user);
+      
       if (event === 'SIGNED_IN' && session?.user) {
+        console.log("Usuário fez sign in, verificando sessão...");
         checkSession();
       }
     });
+    
     return () => {
       listener?.subscription?.unsubscribe();
     };

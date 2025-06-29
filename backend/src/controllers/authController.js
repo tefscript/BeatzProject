@@ -15,11 +15,11 @@ export const login = async (req, res) => {
 
   const { data: user, error } = await db.from('users').select('*').eq('email', email).maybeSingle();
 
-  if (error || !user) return res.status(401).json({ error: 'Credenciais inválidas' });
+  if (error || !user) return res.status(401).json({ error: 'Credenciais inválidas' });
 
   const passwordMatch = await bcrypt.compare(password, user.password_hash);
 
-  if (!passwordMatch) return res.status(401).json({ error: 'Credenciais inválidas' });
+  if (!passwordMatch) return res.status(401).json({ error: 'Credenciais inválidas' });
 
   const token = jwt.sign(
     { userId: user.id, email: user.email },
@@ -110,4 +110,138 @@ export const socialLogin = async (req, res) => {
   );
 
   res.json({ token, user: { id: user.id, email: user.email, name: user.name } });
+};
+
+export const logout = async (req, res) => {
+  // Em uma implementação real, você poderia invalidar o token
+  // Por enquanto, apenas retorna sucesso
+  res.status(200).json({ 
+    success: true, 
+    message: 'Logout successful' 
+  });
+};
+
+export const getProfile = async (req, res) => {
+  if (!req.user) {
+    return res.status(404).json({ 
+      success: false, 
+      message: 'User not found' 
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    data: {
+      id: req.user.id,
+      email: req.user.email,
+      name: req.user.name
+    }
+  });
+};
+
+export const updateProfile = async (req, res) => {
+  await body('name').optional().isString().withMessage('Nome deve ser uma string').run(req);
+  await body('email').optional().isEmail().withMessage('Email inválido').run(req);
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      message: 'Validation failed',
+      errors: errors.array()
+    });
+  }
+
+  if (!req.user) {
+    return res.status(404).json({ 
+      success: false, 
+      message: 'User not found' 
+    });
+  }
+
+  const { name, email } = req.body;
+  const updateData = {};
+
+  if (name) updateData.name = name;
+  if (email) updateData.email = email;
+
+  if (Object.keys(updateData).length === 0) {
+    return res.status(400).json({
+      success: false,
+      message: 'No data to update'
+    });
+  }
+
+  const { data: updatedUser, error } = await db
+    .from('users')
+    .update(updateData)
+    .eq('id', req.user.id)
+    .select()
+    .single();
+
+  if (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error updating profile'
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: 'Profile updated successfully',
+    data: updatedUser
+  });
+};
+
+export const changePassword = async (req, res) => {
+  await body('currentPassword').notEmpty().withMessage('Senha atual é obrigatória').run(req);
+  await body('newPassword').isLength({ min: 6 }).withMessage('Nova senha deve ter pelo menos 6 caracteres').run(req);
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      message: 'Validation failed',
+      errors: errors.array()
+    });
+  }
+
+  if (!req.user) {
+    return res.status(404).json({ 
+      success: false, 
+      message: 'User not found' 
+    });
+  }
+
+  const { currentPassword, newPassword } = req.body;
+
+  // Verificar senha atual
+  const passwordMatch = await bcrypt.compare(currentPassword, req.user.password_hash);
+  if (!passwordMatch) {
+    return res.status(400).json({
+      success: false,
+      message: 'Current password is incorrect'
+    });
+  }
+
+  // Hash da nova senha
+  const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+  // Atualizar senha
+  const { error } = await db
+    .from('users')
+    .update({ password_hash: hashedNewPassword })
+    .eq('id', req.user.id);
+
+  if (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error changing password'
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: 'Password changed successfully'
+  });
 };

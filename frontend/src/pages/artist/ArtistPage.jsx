@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Sidebar from "@/components/sidebar/Sidebar";
 import api from "@/config/api";
 import { usePlayer } from "@/context/PlayerContext";
@@ -16,7 +16,6 @@ const ArtistPage = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [followLoading, setFollowLoading] = useState(false);
   const { playMusic } = usePlayer();
-  const navigate = useNavigate();
   const { user } = useUser();
 
   useEffect(() => {
@@ -64,7 +63,7 @@ const ArtistPage = () => {
     try {
       await api.post('/api/user/follow', { artistId: id });
       setIsFollowing(true);
-    } catch (e) {
+    } catch {
       alert('Erro ao seguir artista.');
     } finally {
       setFollowLoading(false);
@@ -76,7 +75,7 @@ const ArtistPage = () => {
     try {
       await api.delete(`/api/user/unfollow`, { data: { artistId: id } });
       setIsFollowing(false);
-    } catch (e) {
+    } catch {
       alert('Erro ao deixar de seguir artista.');
     } finally {
       setFollowLoading(false);
